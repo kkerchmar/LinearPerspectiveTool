@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "sourceMap": true,
+        "jsx": "react",
+        "noImplicitAny": true,
+        "outDir": "./dist/",
+        "module": "CommonJS",
+        "target": "ES6",
+        "allowJs": true,
+        "typeRoots": [
+            "./node_modules/@types",
+            "./types"
+        ]
+    }
+}
