@@ -1,6 +1,6 @@
 import './menu.scss';
 
-import React, { Component, ReactNode } from 'react';
+import React, { FunctionComponent, ReactNode } from 'react';
 
 interface IMenuProps {
     isOpen: boolean,
@@ -10,31 +10,24 @@ interface IMenuProps {
     } 
 }
 
-interface IMenuState {
-}
-
-export default class Menu extends Component<IMenuProps, IMenuState> {
-    constructor(props: IMenuProps) {
-        super(props);
+const Menu: FunctionComponent<IMenuProps> = (props: IMenuProps) => {
+    let openStyle: string = '';
+    if (props.isOpen) {
+        // The whitespace here is necessary to separate it from the
+        // preceding CSS class name.
+        openStyle = ' menu-open';
     }
 
-    render() {
-        let openStyle: string = '';
-        if (this.props.isOpen) {
-            // The whitespace here is necessary to separate it from the
-            // preceding CSS class name.
-            openStyle = ' menu-open';
-        }
-
-        return (
-            <div className="menu-component">
-                <div className={"menu" + openStyle}>
-                    {this.props.children.menu}
-                </div>
-                <div className={"content" + openStyle}>
-                    {this.props.children.content}
-                </div>
+    return (
+        <div className="menu-component">
+            <div className={"menu" + openStyle}>
+                {props.children.menu}
             </div>
-        );
-    }
-}
+            <div className={"content" + openStyle}>
+                {props.children.content}
+            </div>
+        </div>
+    );
+};
+
+export default Menu;
