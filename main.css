@@ -4,14 +4,15 @@
 }
 
 body, html, .container {
-  height: 100vh;
+  height: 100%;
 }
 
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
 .hover-frame {
-  display: inline-block;
+  width: 2rem;
+  height: 2rem;
 }
 
 .icon-button {
@@ -37,16 +38,17 @@ body {
 
 .main-grid {
   display: grid;
-  grid-template-columns: 1fr 3fr;
-  grid-template-rows: 1fr 3fr;
+  grid-template-columns: 25% 1fr;
+  grid-template-rows: 15% 1fr;
 }
 .main-grid header {
   grid-row: 1;
   grid-column: 1/span 2;
   padding: 0.4rem;
+  background-color: #65b;
   display: flex;
   flex-direction: row;
-  background-color: #65b;
+  align-items: flex-start;
 }
 .main-grid header h1 {
   width: 0px;
@@ -56,13 +58,13 @@ body {
 .main-grid header .hover-frame:hover .icon-button {
   fill: #333;
 }
-.main-grid .sidebar {
+.main-grid .sidebar-container {
   grid-row: 2;
   grid-column: 1;
   border-right: solid thick black;
   background-color: #ccc;
 }
-.main-grid .render {
+.main-grid .renderer-container {
   grid-row: 2;
   grid-column: 2;
 }
@@ -89,4 +91,14 @@ body {
 .menu-component .content.menu-open {
   left: 30%;
   width: 70%;
+}
+.renderer-component {
+  position: relative;
+}
+.renderer-component canvas {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
 }
