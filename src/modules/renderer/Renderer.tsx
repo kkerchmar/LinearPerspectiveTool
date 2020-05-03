@@ -3,10 +3,12 @@ import './renderer.scss'
 import React, { FunctionComponent } from 'react';
 import { mat4 } from 'gl-matrix';
 
+import useAnimationFrame from '../hooks/useAnimationFrame';
+
 interface IRendererProps {
 }
 
-function debounce(callback: () => any, latency: number = 500): void {
+function debounce(callback: () => void, latency: number = 500): void {
     let timer: NodeJS.Timeout;
 
     clearTimeout(timer);
@@ -150,7 +152,6 @@ const Renderer: FunctionComponent<IRendererProps> = (props: IRendererProps) => {
     const positionBufferRef = React.useRef<WebGLBuffer>(null);
     const colorBufferRef = React.useRef<WebGLBuffer>(null);
     const indexBufferRef = React.useRef<WebGLBuffer>(null);
-    const lastTimestampRef = React.useRef<DOMHighResTimeStamp>(0);
     const rotationRef = React.useRef<number>(0);
 
     function resize() {
@@ -172,7 +173,7 @@ const Renderer: FunctionComponent<IRendererProps> = (props: IRendererProps) => {
         });
     }
 
-    function draw(timestamp: DOMHighResTimeStamp) {
+    function draw(delta: number) {
         const gl = contextRef.current;
         const programInfo = programInfoRef.current;
         const positionBuffer = positionBufferRef.current;
@@ -184,10 +185,7 @@ const Renderer: FunctionComponent<IRendererProps> = (props: IRendererProps) => {
         }
 
         // Delta in seconds.
-        const delta = (timestamp - lastTimestampRef.current) * 0.001;
-        lastTimestampRef.current = timestamp;
-
-        rotationRef.current += delta;
+        rotationRef.current += delta * 0.001;
 
         gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
         gl.clearColor(0.9, 0.9, 0.9, 1.0);
@@ -280,8 +278,6 @@ const Renderer: FunctionComponent<IRendererProps> = (props: IRendererProps) => {
             const offset = 0;
             gl.drawElements(gl.TRIANGLES, vertexCount, type, offset);
         }
-        
-        window.requestAnimationFrame(draw);
     }
 
     function createCube() {
@@ -330,7 +326,7 @@ const Renderer: FunctionComponent<IRendererProps> = (props: IRendererProps) => {
         gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);        
     }
 
-    React.useEffect(() => {
+    function setup() {
         const canvas = canvasRef.current;
         if (!canvas) {
             return;
@@ -351,9 +347,13 @@ const Renderer: FunctionComponent<IRendererProps> = (props: IRendererProps) => {
         resize();
         
         createCube();
+    }
 
-        window.requestAnimationFrame(draw);
+    React.useEffect(() => {
+        setup();
     }, []);
+
+    useAnimationFrame(draw);
 
     return (
         <div className="renderer-component container">
