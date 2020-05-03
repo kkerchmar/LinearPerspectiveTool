@@ -7,6 +7,7 @@
         "module": "CommonJS",
         "target": "ES6",
         "allowJs": true,
+        "esModuleInterop": true,
         "typeRoots": [
             "./node_modules/@types",
             "./types"

@@ -1,9 +1,9 @@
-import './main.scss'
+import './index.scss'
 
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import { Main } from './modules/main/Main';
+import Main from './modules/main/Main';
 
 class App {
     public OnLoad() {
