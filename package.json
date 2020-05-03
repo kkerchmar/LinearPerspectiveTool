@@ -1,4 +1,5 @@
 {
+  "homepage": "https://kkerchmar.github.io/LinearPerspectiveTool/",
   "name": "linearperspectivetool",
   "version": "1.0.0",
   "description": "A tool to study linear perspective.",
@@ -6,13 +7,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-dev": "webpack --config webpack.config.js",
-    "run-dev": "webpack-dev-server"
+    "run-dev": "webpack-dev-server",
+    "deploy": "gh-pages -d dist"
   },
   "author": "Kelsie Kerchmar",
   "license": "MIT",
   "devDependencies": {
     "@svgr/webpack": "^5.4.0",
     "css-loader": "^3.5.3",
+    "gh-pages": "^2.2.0",
     "html-webpack-plugin": "^4.3.0",
     "mini-css-extract-plugin": "^0.9.0",
     "sass": "^1.26.5",
