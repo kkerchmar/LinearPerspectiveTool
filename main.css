@@ -92,10 +92,10 @@ body {
   left: 30%;
   width: 70%;
 }
-.renderer-component {
+.webglcanvas-component {
   position: relative;
 }
-.renderer-component canvas {
+.webglcanvas-component canvas {
   position: absolute;
   top: 0px;
   left: 0px;
