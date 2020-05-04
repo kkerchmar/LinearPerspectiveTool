@@ -4,6 +4,8 @@ import React, { FunctionComponent } from 'react';
 import { mat4 } from 'gl-matrix';
 
 import useAnimationFrame from '../hooks/useAnimationFrame';
+import useWebGL from '../hooks/useWebGL';
+import useResizeCanvas from '../hooks/useResizeCanvas';
 
 interface IRendererProps {
 }
@@ -126,15 +128,6 @@ function initShaderProgram(gl: WebGLRenderingContext, vsSource: string, fsSource
     return shaderProgram;
 }
 
-type Action = () => void;
-
-function debounce(callback: Action, latency: number = 500): void {
-    let timer: NodeJS.Timeout;
-
-    clearTimeout(timer);
-    timer = setTimeout(callback, latency);
-}
-
 interface ProgramInfo {
     program: WebGLProgram,
     attribLocations: {
@@ -149,31 +142,12 @@ interface ProgramInfo {
 
 const Renderer: FunctionComponent<IRendererProps> = (props: IRendererProps) => {
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
-    const contextRef = React.useRef<WebGLRenderingContext>(null);
+    const contextRef = useWebGL(canvasRef);
     const programInfoRef = React.useRef<ProgramInfo>(null);
     const positionBufferRef = React.useRef<WebGLBuffer>(null);
     const colorBufferRef = React.useRef<WebGLBuffer>(null);
     const indexBufferRef = React.useRef<WebGLBuffer>(null);
     const rotationRef = React.useRef<number>(0);
-
-    function resize() {
-        const canvas = canvasRef.current;
-        if (!canvas) {
-            return;
-        }
-
-        const cssToRealPixels = window.devicePixelRatio || 1;
-
-        const newWidth = Math.floor(canvas.clientWidth * cssToRealPixels);
-        const newHeight = Math.floor(canvas.clientHeight * cssToRealPixels);
-
-        if (canvas.width !== newWidth || canvas.height !== newHeight) {
-            debounce(() => {
-                canvas.width = newWidth;
-                canvas.height = newHeight;
-            });
-        }
-    }
 
     function draw(delta: number) {
         const gl = contextRef.current;
@@ -185,8 +159,6 @@ const Renderer: FunctionComponent<IRendererProps> = (props: IRendererProps) => {
         if (!gl || !programInfo || !positionBuffer || !colorBuffer || !indexBuffer) {
             return;
         }
-
-        resize();
 
         // Delta in seconds.
         rotationRef.current += delta * 0.001;
@@ -330,31 +302,12 @@ const Renderer: FunctionComponent<IRendererProps> = (props: IRendererProps) => {
         gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);        
     }
 
-    function setup() {
-        const canvas = canvasRef.current;
-        if (!canvas) {
-            return;
-        }
-
-        if (!canvas.getContext) {
-            return;
-        }
-
-        const gl = canvas.getContext('webgl') as WebGLRenderingContext;
-        if (!gl) {
-            return;
-        }
-
-        contextRef.current = gl;
-        
-        createCube();
-    }
-
     React.useEffect(() => {
-        setup();
+        createCube();
     }, []);
 
     useAnimationFrame(draw);
+    useResizeCanvas(canvasRef);
 
     return (
         <div className="renderer-component container">
