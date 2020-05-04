@@ -4,15 +4,9 @@ import React, { FunctionComponent } from 'react';
 import { mat4 } from 'gl-matrix';
 
 import useAnimationFrame from '../hooks/useAnimationFrame';
+import useResizeEvent from '../hooks/useResizeEvent';
 
 interface IRendererProps {
-}
-
-function debounce(callback: () => void, latency: number = 500): void {
-    let timer: NodeJS.Timeout;
-
-    clearTimeout(timer);
-    timer = setTimeout(callback, latency);
 }
 
 const positions = [
@@ -155,22 +149,20 @@ const Renderer: FunctionComponent<IRendererProps> = (props: IRendererProps) => {
     const rotationRef = React.useRef<number>(0);
 
     function resize() {
-        debounce(() => {
-            const canvas = canvasRef.current;
-            if (!canvas) {
-                return;
-            }
-    
-            const cssToRealPixels = window.devicePixelRatio || 1;
-    
-            const newWidth = Math.floor(canvas.clientWidth * cssToRealPixels);
-            const newHeight = Math.floor(canvas.clientHeight * cssToRealPixels);
-    
-            if (canvas.width !== newWidth || canvas.height !== newHeight) {
-                canvas.width = newWidth;
-                canvas.height = newHeight;
-            }
-        });
+        const canvas = canvasRef.current;
+        if (!canvas) {
+            return;
+        }
+
+        const cssToRealPixels = window.devicePixelRatio || 1;
+
+        const newWidth = Math.floor(canvas.clientWidth * cssToRealPixels);
+        const newHeight = Math.floor(canvas.clientHeight * cssToRealPixels);
+
+        if (canvas.width !== newWidth || canvas.height !== newHeight) {
+            canvas.width = newWidth;
+            canvas.height = newHeight;
+        }
     }
 
     function draw(delta: number) {
@@ -342,9 +334,6 @@ const Renderer: FunctionComponent<IRendererProps> = (props: IRendererProps) => {
         }
 
         contextRef.current = gl;
-
-        canvas.addEventListener('resize', resize);
-        resize();
         
         createCube();
     }
@@ -354,6 +343,7 @@ const Renderer: FunctionComponent<IRendererProps> = (props: IRendererProps) => {
     }, []);
 
     useAnimationFrame(draw);
+    useResizeEvent(canvasRef, resize);
 
     return (
         <div className="renderer-component container">
