@@ -1,10 +1,8 @@
 import React, { MutableRefObject } from 'react';
 
-type Hook = (canvasRef: MutableRefObject<HTMLCanvasElement>) => MutableRefObject<WebGLRenderingContext>;
+type Hook = (canvasRef: MutableRefObject<HTMLCanvasElement>, contextRef: MutableRefObject<WebGLRenderingContext>) => void;
 
-const useWebGL: Hook = canvasRef => {
-    const contextRef = React.useRef<WebGLRenderingContext>(null);
-
+const useWebGL: Hook = (canvasRef, contextRef) => {
     React.useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) {

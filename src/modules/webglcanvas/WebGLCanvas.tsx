@@ -1,19 +1,18 @@
 import './webglcanvas.scss'
 
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, MutableRefObject } from 'react';
 
 import useWebGL from '../hooks/useWebGL';
 import useResizeCanvas from '../hooks/useResizeCanvas';
-import useCube from '../hooks/useCube';
 
 interface IWebGLCanvasProps {
+    contextRef: MutableRefObject<WebGLRenderingContext>;
 }
 
 const WebGLCanvas: FunctionComponent<IWebGLCanvasProps> = (props: IWebGLCanvasProps) => {
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
-    const contextRef = useWebGL(canvasRef);
-
-    useCube(contextRef);
+    
+    useWebGL(canvasRef, props.contextRef);
     useResizeCanvas(canvasRef);
 
     return (

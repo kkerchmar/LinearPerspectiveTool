@@ -7,11 +7,15 @@ import React, { FunctionComponent, MouseEvent } from 'react';
 import Menu from '../menu/Menu';
 import WebGLCanvas from '../webglcanvas/WebGLCanvas';
 
+import useCube from '../hooks/useCube';
+
 interface IMainProps {
 }
 
 const Main: FunctionComponent<IMainProps> = (props: IMainProps) => {
     const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false);
+
+    const contextRef = React.useRef<WebGLRenderingContext>(null);
 
     function closeMenu(event: MouseEvent) {
         event.preventDefault();
@@ -27,6 +31,8 @@ const Main: FunctionComponent<IMainProps> = (props: IMainProps) => {
         setIsMenuOpen(false);
     }
     
+    useCube(contextRef);
+
     return (
         <div className="container">
             <Menu isOpen={isMenuOpen}>
@@ -52,7 +58,7 @@ const Main: FunctionComponent<IMainProps> = (props: IMainProps) => {
                                 <h1>Sidebar Container</h1>
                             </div>
                             <div className="renderer-container">
-                                <WebGLCanvas />
+                                <WebGLCanvas contextRef={contextRef} />
                             </div>
                         </div>
                     )
