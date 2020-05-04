@@ -1,4 +1,4 @@
-import './renderer.scss'
+import './webglcanvas.scss'
 
 import React, { FunctionComponent } from 'react';
 
@@ -6,10 +6,10 @@ import useWebGL from '../hooks/useWebGL';
 import useResizeCanvas from '../hooks/useResizeCanvas';
 import useCube from '../hooks/useCube';
 
-interface IRendererProps {
+interface IWebGLCanvasProps {
 }
 
-const Renderer: FunctionComponent<IRendererProps> = (props: IRendererProps) => {
+const WebGLCanvas: FunctionComponent<IWebGLCanvasProps> = (props: IWebGLCanvasProps) => {
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
     const contextRef = useWebGL(canvasRef);
 
@@ -17,10 +17,10 @@ const Renderer: FunctionComponent<IRendererProps> = (props: IRendererProps) => {
     useResizeCanvas(canvasRef);
 
     return (
-        <div className="renderer-component container">
+        <div className="webglcanvas-component container">
             <canvas ref={canvasRef}/>
         </div>
     );
 };
 
-export default Renderer;
+export default WebGLCanvas;

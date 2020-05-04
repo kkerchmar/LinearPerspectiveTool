@@ -5,7 +5,7 @@ import { ReactComponent as Close } from './close.svg';
 import React, { FunctionComponent, MouseEvent } from 'react';
 
 import Menu from '../menu/Menu';
-import Renderer from '../renderer/Renderer';
+import WebGLCanvas from '../webglcanvas/WebGLCanvas';
 
 interface IMainProps {
 }
@@ -52,7 +52,7 @@ const Main: FunctionComponent<IMainProps> = (props: IMainProps) => {
                                 <h1>Sidebar Container</h1>
                             </div>
                             <div className="renderer-container">
-                                <Renderer />
+                                <WebGLCanvas />
                             </div>
                         </div>
                     )
