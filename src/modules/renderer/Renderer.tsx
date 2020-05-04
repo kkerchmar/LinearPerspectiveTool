@@ -4,7 +4,6 @@ import React, { FunctionComponent } from 'react';
 import { mat4 } from 'gl-matrix';
 
 import useAnimationFrame from '../hooks/useAnimationFrame';
-import useResizeEvent from '../hooks/useResizeEvent';
 
 interface IRendererProps {
 }
@@ -127,6 +126,15 @@ function initShaderProgram(gl: WebGLRenderingContext, vsSource: string, fsSource
     return shaderProgram;
 }
 
+type Action = () => void;
+
+function debounce(callback: Action, latency: number = 500): void {
+    let timer: NodeJS.Timeout;
+
+    clearTimeout(timer);
+    timer = setTimeout(callback, latency);
+}
+
 interface ProgramInfo {
     program: WebGLProgram,
     attribLocations: {
@@ -160,8 +168,10 @@ const Renderer: FunctionComponent<IRendererProps> = (props: IRendererProps) => {
         const newHeight = Math.floor(canvas.clientHeight * cssToRealPixels);
 
         if (canvas.width !== newWidth || canvas.height !== newHeight) {
-            canvas.width = newWidth;
-            canvas.height = newHeight;
+            debounce(() => {
+                canvas.width = newWidth;
+                canvas.height = newHeight;
+            });
         }
     }
 
@@ -175,6 +185,8 @@ const Renderer: FunctionComponent<IRendererProps> = (props: IRendererProps) => {
         if (!gl || !programInfo || !positionBuffer || !colorBuffer || !indexBuffer) {
             return;
         }
+
+        resize();
 
         // Delta in seconds.
         rotationRef.current += delta * 0.001;
@@ -343,7 +355,6 @@ const Renderer: FunctionComponent<IRendererProps> = (props: IRendererProps) => {
     }, []);
 
     useAnimationFrame(draw);
-    useResizeEvent(canvasRef, resize);
 
     return (
         <div className="renderer-component container">
