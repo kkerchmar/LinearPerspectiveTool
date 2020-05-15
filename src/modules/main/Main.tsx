@@ -5,6 +5,7 @@ import { ReactComponent as Close } from './close.svg';
 import React, { FunctionComponent, MouseEvent } from 'react';
 
 import Menu from '../menu/Menu';
+import TabControl, { ITab } from '../tabcontrol/TabControl';
 import WebGLCanvas from '../webglcanvas/WebGLCanvas';
 
 import useCube from '../hooks/useCube';
@@ -33,6 +34,13 @@ const Main: FunctionComponent<IMainProps> = (props: IMainProps) => {
     
     useCube(contextRef);
 
+    const tabs: ITab[] = [
+        {
+            header: 'Basic Tools',
+            content: <>Basic Tools</>
+        }
+    ];
+
     return (
         <div className="container">
             <Menu isOpen={isMenuOpen}>
@@ -55,7 +63,7 @@ const Main: FunctionComponent<IMainProps> = (props: IMainProps) => {
                                 <h1>Linear Perspective Tool</h1>
                             </header>
                             <div className="sidebar-container">
-                                <h1>Sidebar Container</h1>
+                                <TabControl selectedTabIndex={0} tabs={tabs}/>
                             </div>
                             <div className="renderer-container">
                                 <WebGLCanvas contextRef={contextRef} />

@@ -1,0 +1,39 @@
+.tabcontrol {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 3em;
+    
+    .content {
+        grid-row: 1;
+        grid-column: 1;
+        border-bottom: 1px solid black;
+    }
+
+    .tabs {
+        grid-row: 2;
+        grid-column: 1;
+
+        display: flex;
+        flex-flow: row;
+        flex-direction: row;
+
+        .tab {
+            width: 0px;
+            max-width: 8em;
+            flex-grow: 1;
+            border-right: 1px solid black;
+        }
+
+        .tab:hover {
+            background-color: lightsteelblue;
+        }
+
+        .tab:active {
+            background-color: lightslategray;
+        }
+
+        .tab.selected {
+            background-color: lightsteelblue;
+        }
+    }
+}
