@@ -11,7 +11,14 @@ import TabControl, { ITab } from '../tabcontrol/TabControl';
 import Toolbox, { ITool } from '../toolbox/Toolbox';
 import WebGLCanvas from '../webglcanvas/WebGLCanvas';
 
-import useCube from '../hooks/useCube';
+import useRenderer from '../hooks/useRenderer';
+
+import Model from '../../model/Model';
+import Point from '../../model/Point';
+
+interface IModelTool extends ITool {
+    action: (point: Point) => void
+}
 
 interface IMainProps {
 }
@@ -19,35 +26,76 @@ interface IMainProps {
 const Main: FunctionComponent<IMainProps> = (props: IMainProps) => {
     const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false);
     
-    const tools = React.useMemo<ITool[]>(
-        () => [
+    const contextRef = React.useRef<WebGLRenderingContext>(null);
+    const modelRef = React.useRef<Model>(new Model());
+
+    useRenderer(contextRef, modelRef);
+
+    const tools = React.useRef<IModelTool[]>(
+        [
             {
                 name: 'point',
-                content: <PointTool/>
+                content: <PointTool/>,
+                action: point => {
+                    if (modelRef.current.isOngoing()) {
+                        modelRef.current.cancel();
+                    }
+                    else {
+                        modelRef.current.addPoint(point);
+                    }
+                }
             },
             {
                 name: 'line',
-                content: <LineTool/>
+                content: <LineTool/>,
+                action: point => {
+                    if (modelRef.current.isOngoing()) {
+                        modelRef.current.endLine(point);
+                    }
+                    else {
+                        modelRef.current.begin(point);
+                    }
+                }
+            },
+            {
+                name: 'ray',
+                content: <span>ray</span>,
+                action: point => {
+                    if (modelRef.current.isOngoing()) {
+                        modelRef.current.endRay(point);
+                    }
+                    else {
+                        modelRef.current.begin(point);
+                    }
+                }
+            },
+            {
+                name: 'segment',
+                content: <span>segment</span>,
+                action: point => {
+                    if (modelRef.current.isOngoing()) {
+                        modelRef.current.endSegment(point);
+                    }
+                    else {
+                        modelRef.current.begin(point);
+                    }
+                }
             }
-        ],
-        null
+        ]
     );
 
-    const toolMap = React.useMemo<Map<string, ITool>>(
-        () => {
-            const map = new Map();
-            tools.forEach(tool => {
-                map.set(tool.name, tool);
-            });
+    function createToolMap(): Map<string, IModelTool> {
+        const map = new Map<string, IModelTool>();
+        tools.current.forEach(tool => {
+            map.set(tool.name, tool);
+        });
 
-            return map;
-        },
-        null
-    );
+        return map;
+    }
+
+    const toolMap = React.useRef<Map<string, IModelTool>>(createToolMap());
     
-    const [selectedToolName, setSelectedToolName] = React.useState<string>(tools[0].name);
-
-    const contextRef = React.useRef<WebGLRenderingContext>(null);
+    const [selectedToolName, setSelectedToolName] = React.useState<string>(tools.current[0].name);
 
     function closeMenu(event: MouseEvent) {
         event.preventDefault();
@@ -62,9 +110,7 @@ const Main: FunctionComponent<IMainProps> = (props: IMainProps) => {
     function closeMenuCapture() {
         setIsMenuOpen(false);
     }
-    
-    useCube(contextRef);
-    
+        
     function toolSelectedCallback(tool: ITool) {
         setSelectedToolName(tool.name);
     }
@@ -72,11 +118,16 @@ const Main: FunctionComponent<IMainProps> = (props: IMainProps) => {
     const tabs: ITab[] = [
         {
             header: 'Basic Tools',
-            content: <Toolbox selectedTool={toolMap.get(selectedToolName)}
-                              tools={tools}
+            content: <Toolbox selectedTool={toolMap.current.get(selectedToolName)}
+                              tools={tools.current}
                               toolSelectedCallback={toolSelectedCallback}/>
         }
     ];
+
+    function rendererClicked(event: MouseEvent) {
+        const tool = toolMap.current.get(selectedToolName);
+        tool.action(new Point(event.clientX, event.clientY));
+    }
 
     return (
         <div className="container">
@@ -102,7 +153,7 @@ const Main: FunctionComponent<IMainProps> = (props: IMainProps) => {
                             <div className="sidebar-container">
                                 <TabControl selectedTabIndex={0} tabs={tabs}/>
                             </div>
-                            <div className="renderer-container">
+                            <div className="renderer-container" onClick={rendererClicked}>
                                 <WebGLCanvas contextRef={contextRef} />
                             </div>
                         </div>
