@@ -429,7 +429,7 @@ eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\n__webpack_require__(/*! ./main.scss */ \"./src/modules/main/main.scss\");\nconst hamburger_svg_1 = __webpack_require__(/*! ./hamburger.svg */ \"./src/modules/main/hamburger.svg\");\nconst close_svg_1 = __webpack_require__(/*! ./close.svg */ \"./src/modules/main/close.svg\");\nconst react_1 = __importDefault(__webpack_require__(/*! react */ \"./node_modules/react/index.js\"));\nconst Menu_1 = __importDefault(__webpack_require__(/*! ../menu/Menu */ \"./src/modules/menu/Menu.tsx\"));\nconst WebGLCanvas_1 = __importDefault(__webpack_require__(/*! ../webglcanvas/WebGLCanvas */ \"./src/modules/webglcanvas/WebGLCanvas.tsx\"));\nconst useCube_1 = __importDefault(__webpack_require__(/*! ../hooks/useCube */ \"./src/modules/hooks/useCube.ts\"));\nconst Main = (props) => {\n    const [isMenuOpen, setIsMenuOpen] = react_1.default.useState(false);\n    const contextRef = react_1.default.useRef(null);\n    function closeMenu(event) {\n        event.preventDefault();\n        setIsMenuOpen(false);\n    }\n    function openMenu(event) {\n        event.preventDefault();\n        setIsMenuOpen(true);\n    }\n    function closeMenuCapture() {\n        setIsMenuOpen(false);\n    }\n    useCube_1.default(contextRef);\n    return (react_1.default.createElement(\"div\", { className: \"container\" },\n        react_1.default.createElement(Menu_1.default, { isOpen: isMenuOpen }, {\n            menu: (react_1.default.createElement(\"div\", { className: \"container menu-content\" },\n                react_1.default.createElement(\"div\", { className: \"hover-frame\" },\n                    react_1.default.createElement(close_svg_1.ReactComponent, { className: \"close icon-button\", onClick: closeMenu })))),\n            content: (react_1.default.createElement(\"div\", { className: \"main-grid container\", onClickCapture: closeMenuCapture },\n                react_1.default.createElement(\"header\", null,\n                    !isMenuOpen && (react_1.default.createElement(\"div\", { className: \"hover-frame\" },\n                        react_1.default.createElement(hamburger_svg_1.ReactComponent, { className: \"hamburger icon-button\", onClick: openMenu }))),\n                    react_1.default.createElement(\"h1\", null, \"Linear Perspective Tool\")),\n                react_1.default.createElement(\"div\", { className: \"sidebar-container\" },\n                    react_1.default.createElement(\"h1\", null, \"Sidebar Container\")),\n                react_1.default.createElement(\"div\", { className: \"renderer-container\" },\n                    react_1.default.createElement(WebGLCanvas_1.default, { contextRef: contextRef }))))\n        })));\n};\nexports.default = Main;\n\n\n//# sourceURL=webpack:///./src/modules/main/Main.tsx?");
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\n__webpack_require__(/*! ./main.scss */ \"./src/modules/main/main.scss\");\nconst hamburger_svg_1 = __webpack_require__(/*! ./hamburger.svg */ \"./src/modules/main/hamburger.svg\");\nconst close_svg_1 = __webpack_require__(/*! ./close.svg */ \"./src/modules/main/close.svg\");\nconst line_tool_svg_1 = __webpack_require__(/*! ./line-tool.svg */ \"./src/modules/main/line-tool.svg\");\nconst point_tool_svg_1 = __webpack_require__(/*! ./point-tool.svg */ \"./src/modules/main/point-tool.svg\");\nconst react_1 = __importDefault(__webpack_require__(/*! react */ \"./node_modules/react/index.js\"));\nconst Menu_1 = __importDefault(__webpack_require__(/*! ../menu/Menu */ \"./src/modules/menu/Menu.tsx\"));\nconst TabControl_1 = __importDefault(__webpack_require__(/*! ../tabcontrol/TabControl */ \"./src/modules/tabcontrol/TabControl.tsx\"));\nconst Toolbox_1 = __importDefault(__webpack_require__(/*! ../toolbox/Toolbox */ \"./src/modules/toolbox/Toolbox.tsx\"));\nconst WebGLCanvas_1 = __importDefault(__webpack_require__(/*! ../webglcanvas/WebGLCanvas */ \"./src/modules/webglcanvas/WebGLCanvas.tsx\"));\nconst useCube_1 = __importDefault(__webpack_require__(/*! ../hooks/useCube */ \"./src/modules/hooks/useCube.ts\"));\nconst Main = (props) => {\n    const [isMenuOpen, setIsMenuOpen] = react_1.default.useState(false);\n    const [selectedTool, setSelectedTool] = react_1.default.useState(null);\n    const contextRef = react_1.default.useRef(null);\n    function closeMenu(event) {\n        event.preventDefault();\n        setIsMenuOpen(false);\n    }\n    function openMenu(event) {\n        event.preventDefault();\n        setIsMenuOpen(true);\n    }\n    function closeMenuCapture() {\n        setIsMenuOpen(false);\n    }\n    useCube_1.default(contextRef);\n    const tools = [\n        {\n            content: (react_1.default.createElement(\"div\", null,\n                react_1.default.createElement(point_tool_svg_1.ReactComponent, null)))\n        },\n        {\n            content: react_1.default.createElement(line_tool_svg_1.ReactComponent, null)\n        }\n    ];\n    const tabs = [\n        {\n            header: 'Basic Tools',\n            content: react_1.default.createElement(Toolbox_1.default, { selectedTool: selectedTool !== null && selectedTool !== void 0 ? selectedTool : tools[0], tools: tools, toolSelectedCallback: setSelectedTool })\n        }\n    ];\n    return (react_1.default.createElement(\"div\", { className: \"container\" },\n        react_1.default.createElement(Menu_1.default, { isOpen: isMenuOpen }, {\n            menu: (react_1.default.createElement(\"div\", { className: \"container menu-content\" },\n                react_1.default.createElement(\"div\", { className: \"hover-frame\" },\n                    react_1.default.createElement(close_svg_1.ReactComponent, { className: \"close icon-button\", onClick: closeMenu })))),\n            content: (react_1.default.createElement(\"div\", { className: \"main-grid container\", onClickCapture: closeMenuCapture },\n                react_1.default.createElement(\"header\", null,\n                    !isMenuOpen && (react_1.default.createElement(\"div\", { className: \"hover-frame\" },\n                        react_1.default.createElement(hamburger_svg_1.ReactComponent, { className: \"hamburger icon-button\", onClick: openMenu }))),\n                    react_1.default.createElement(\"h1\", null, \"Linear Perspective Tool\")),\n                react_1.default.createElement(\"div\", { className: \"sidebar-container\" },\n                    react_1.default.createElement(TabControl_1.default, { selectedTabIndex: 0, tabs: tabs })),\n                react_1.default.createElement(\"div\", { className: \"renderer-container\" },\n                    react_1.default.createElement(WebGLCanvas_1.default, { contextRef: contextRef }))))\n        })));\n};\nexports.default = Main;\n\n\n//# sourceURL=webpack:///./src/modules/main/Main.tsx?");
 
 /***/ }),
 
@@ -457,6 +457,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 
 /***/ }),
 
+/***/ "./src/modules/main/line-tool.svg":
+/*!****************************************!*\
+  !*** ./src/modules/main/line-tool.svg ***!
+  \****************************************/
+/*! exports provided: default, ReactComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"ReactComponent\", function() { return SvgLineTool; });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\nfunction _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }\n\n\n\nvar _ref = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__[\"createElement\"](\"g\", {\n  \"data-name\": \"Layer 2\"\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__[\"createElement\"](\"g\", {\n  \"data-name\": \"Layer 1\"\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__[\"createElement\"](\"circle\", {\n  cx: 214.57,\n  cy: 124.43,\n  r: 23\n}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__[\"createElement\"](\"circle\", {\n  cx: 527.57,\n  cy: 52.43,\n  r: 23\n}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__[\"createElement\"](\"path\", {\n  fill: \"none\",\n  stroke: \"#000\",\n  strokeMiterlimit: 10,\n  strokeWidth: 5,\n  d: \"M.57 175.43l733-173\"\n})));\n\nfunction SvgLineTool(props) {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__[\"createElement\"](\"svg\", _extends({\n    viewBox: \"0 0 734.15 177.87\"\n  }, props), _ref);\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3MzQuMTUgMTc3Ljg3Ij48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6bm9uZTtzdHJva2U6IzAwMDtzdHJva2UtbWl0ZXJsaW1pdDoxMDtzdHJva2Utd2lkdGg6NXB4O308L3N0eWxlPjwvZGVmcz48ZyBpZD0iTGF5ZXJfMiIgZGF0YS1uYW1lPSJMYXllciAyIj48ZyBpZD0iTGF5ZXJfMS0yIiBkYXRhLW5hbWU9IkxheWVyIDEiPjxjaXJjbGUgY3g9IjIxNC41NyIgY3k9IjEyNC40MyIgcj0iMjMiLz48Y2lyY2xlIGN4PSI1MjcuNTciIGN5PSI1Mi40MyIgcj0iMjMiLz48bGluZSBjbGFzcz0iY2xzLTEiIHgxPSIwLjU3IiB5MT0iMTc1LjQzIiB4Mj0iNzMzLjU3IiB5Mj0iMi40MyIvPjwvZz48L2c+PC9zdmc+\");\n\n\n//# sourceURL=webpack:///./src/modules/main/line-tool.svg?");
+
+/***/ }),
+
 /***/ "./src/modules/main/main.scss":
 /*!************************************!*\
   !*** ./src/modules/main/main.scss ***!
@@ -465,6 +477,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, exports, __webpack_require__) {
 
 eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./src/modules/main/main.scss?");
+
+/***/ }),
+
+/***/ "./src/modules/main/point-tool.svg":
+/*!*****************************************!*\
+  !*** ./src/modules/main/point-tool.svg ***!
+  \*****************************************/
+/*! exports provided: default, ReactComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"ReactComponent\", function() { return SvgPointTool; });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\nfunction _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }\n\n\n\nvar _ref = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__[\"createElement\"](\"g\", {\n  \"data-name\": \"Layer 2\"\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__[\"createElement\"](\"circle\", {\n  cx: 80.5,\n  cy: 80.5,\n  r: 80.5,\n  \"data-name\": \"Layer 1\"\n}));\n\nfunction SvgPointTool(props) {\n  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__[\"createElement\"](\"svg\", _extends({\n    viewBox: \"0 0 161 161\"\n  }, props), _ref);\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjEgMTYxIj48ZyBpZD0iTGF5ZXJfMiIgZGF0YS1uYW1lPSJMYXllciAyIj48ZyBpZD0iTGF5ZXJfMS0yIiBkYXRhLW5hbWU9IkxheWVyIDEiPjxjaXJjbGUgY3g9IjgwLjUiIGN5PSI4MC41IiByPSI4MC41Ii8+PC9nPjwvZz48L3N2Zz4=\");\n\n\n//# sourceURL=webpack:///./src/modules/main/point-tool.svg?");
 
 /***/ }),
 
@@ -488,6 +512,52 @@ eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {
 /***/ (function(module, exports, __webpack_require__) {
 
 eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./src/modules/menu/menu.scss?");
+
+/***/ }),
+
+/***/ "./src/modules/tabcontrol/TabControl.tsx":
+/*!***********************************************!*\
+  !*** ./src/modules/tabcontrol/TabControl.tsx ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\n__webpack_require__(/*! ./tabcontrol.scss */ \"./src/modules/tabcontrol/tabcontrol.scss\");\nconst react_1 = __importDefault(__webpack_require__(/*! react */ \"./node_modules/react/index.js\"));\nconst TabControl = props => {\n    const [selectedTabIndex, setSelectedTabIndex] = react_1.default.useState(props.selectedTabIndex);\n    function onTabClick(event, tabIndex) {\n        event.preventDefault();\n        setSelectedTabIndex(tabIndex);\n    }\n    const tabs = props.tabs.map((tab, index) => {\n        let selected = '';\n        if (index === selectedTabIndex) {\n            selected = ' selected';\n        }\n        return (react_1.default.createElement(\"div\", { className: \"tab\" + selected, key: index, onClick: (event) => onTabClick(event, index) },\n            react_1.default.createElement(\"span\", null, tab.header)));\n    });\n    return (react_1.default.createElement(\"div\", { className: \"tabcontrol container\" },\n        react_1.default.createElement(\"div\", { className: \"content container\" }, props.tabs[selectedTabIndex].content),\n        react_1.default.createElement(\"div\", { className: \"tabs\" }, tabs)));\n};\nexports.default = TabControl;\n\n\n//# sourceURL=webpack:///./src/modules/tabcontrol/TabControl.tsx?");
+
+/***/ }),
+
+/***/ "./src/modules/tabcontrol/tabcontrol.scss":
+/*!************************************************!*\
+  !*** ./src/modules/tabcontrol/tabcontrol.scss ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./src/modules/tabcontrol/tabcontrol.scss?");
+
+/***/ }),
+
+/***/ "./src/modules/toolbox/Toolbox.tsx":
+/*!*****************************************!*\
+  !*** ./src/modules/toolbox/Toolbox.tsx ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\n__webpack_require__(/*! ./toolbox.scss */ \"./src/modules/toolbox/toolbox.scss\");\nconst react_1 = __importDefault(__webpack_require__(/*! react */ \"./node_modules/react/index.js\"));\nconst Toolbox = props => {\n    function onToolClick(event, tool) {\n        event.preventDefault();\n        props.toolSelectedCallback(tool);\n    }\n    const tools = props.tools.map((tool, index) => {\n        let selected = '';\n        if (tool === props.selectedTool) {\n            selected = ' selected';\n        }\n        return (react_1.default.createElement(\"div\", { className: \"tool\" + selected, key: index, onClick: (event) => onToolClick(event, tool) }, tool.content));\n    });\n    return (react_1.default.createElement(\"div\", { className: \"toolbox container\" }, tools));\n};\nexports.default = Toolbox;\n\n\n//# sourceURL=webpack:///./src/modules/toolbox/Toolbox.tsx?");
+
+/***/ }),
+
+/***/ "./src/modules/toolbox/toolbox.scss":
+/*!******************************************!*\
+  !*** ./src/modules/toolbox/toolbox.scss ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./src/modules/toolbox/toolbox.scss?");
 
 /***/ }),
 
