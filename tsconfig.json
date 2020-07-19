@@ -1,16 +1,16 @@
 {
-    "compilerOptions": {
-        "sourceMap": true,
-        "jsx": "react",
-        "noImplicitAny": true,
-        "outDir": "./dist/",
-        "module": "CommonJS",
-        "target": "ES6",
-        "allowJs": true,
-        "esModuleInterop": true,
-        "typeRoots": [
-            "./node_modules/@types",
-            "./types"
-        ]
-    }
+  "compilerOptions": {
+    "sourceMap": true,
+    "jsx": "react",
+    "noImplicitAny": true,
+    "outDir": "./dist/",
+    "module": "CommonJS",
+    "target": "ES6",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./types"
+    ]
+  }
 }
