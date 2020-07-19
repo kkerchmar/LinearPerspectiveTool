@@ -6,12 +6,12 @@ interface IProgramInfo {
     program: WebGLProgram,
     attribLocations: {
         vertexPosition: number,
-        vertexColor: number,
+        vertexColor: number
     },
     uniformLocations: {
-        projectionMatrix: WebGLUniformLocation,
         modelViewMatrix: WebGLUniformLocation,
-    },
+        projectionMatrix: WebGLUniformLocation
+    }
 }
 
 const positions = [
@@ -115,12 +115,12 @@ class Cube {
         this._programInfo = {
             program: shaderProgram,
             attribLocations: {
-              vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
-              vertexColor: gl.getAttribLocation(shaderProgram, 'aVertexColor'),
+                vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
+                vertexColor: gl.getAttribLocation(shaderProgram, 'aVertexColor')
             },
             uniformLocations: {
-              projectionMatrix: gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'),
-              modelViewMatrix: gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'),
+                modelViewMatrix: gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'),
+                projectionMatrix: gl.getUniformLocation(shaderProgram, 'uProjectionMatrix')
             },
         };
     
