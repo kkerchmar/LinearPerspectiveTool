@@ -41,6 +41,22 @@ class Model {
     public isOngoing(): boolean {
         return this._begin !== null;
     }
+
+    public getPoints(): Point[] {
+        return Array.from(this._points);
+    }
+
+    public getLines(): Line[] {
+        return Array.from(this._lines);
+    }
+
+    public getRays(): Ray[] {
+        return Array.from(this._rays);
+    }
+
+    public getSegments(): Segment[] {
+        return Array.from(this._segments);
+    }
 }
 
 export default Model;
