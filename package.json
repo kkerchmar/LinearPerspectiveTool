@@ -28,6 +28,7 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
+    "@kkerchmar/react-gl": "^1.0.0",
     "@types/gl-matrix": "^2.4.5",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.7",
