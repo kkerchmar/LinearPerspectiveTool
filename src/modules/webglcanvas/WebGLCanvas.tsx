@@ -2,8 +2,7 @@ import './webglcanvas.scss'
 
 import React, { FunctionComponent, MutableRefObject } from 'react';
 
-import useWebGL from '../hooks/useWebGL';
-import useResizeCanvas from '../hooks/useResizeCanvas';
+import { useResizeCanvas, useWebGL } from '@kkerchmar/react-gl';
 
 interface IWebGLCanvasProps {
     contextRef: MutableRefObject<WebGLRenderingContext>;

@@ -1,6 +1,6 @@
 import React, { MutableRefObject } from 'react';
 
-import useAnimationFrame from './useAnimationFrame';
+import { useAnimationFrame } from '@kkerchmar/react-gl';
 
 import Renderer from '../../renderer/Renderer';
 import Model from '../../model/Model';
