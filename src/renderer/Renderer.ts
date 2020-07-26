@@ -1,24 +1,19 @@
-import Model from "../model/Model";
-import Cube from '../webgl/Cube';
-import LineMesh from "./LineMesh";
-import Line from "../model/Line";
-import Point from "../model/Point";
+import CubeMesh from '../webgl/CubeMesh';
+import LineMesh from "../webgl/LineMesh";
+import Point2 from "../math/Point2";
 
-class Renderer {
+export default class Renderer {
     private _context: WebGLRenderingContext;
-    private _model: Model;
 
-    private _cube: Cube;
+    private _cube: CubeMesh;
     private _line: LineMesh;
 
     constructor(
-            context: WebGLRenderingContext,
-            model: Model) {
+            context: WebGLRenderingContext) {
         this._context = context;
-        this._model = model;
 
-        this._cube = new Cube(context);
-        this._line = new LineMesh(context, new Line(new Point(40, 200), new Point(800, 400)), 10);
+        this._cube = new CubeMesh(context);
+        this._line = new LineMesh(context, 10, new Point2(40, 200), new Point2(800, 400));
     }
 
     public draw(delta: number) {
@@ -31,11 +26,11 @@ class Renderer {
 
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-        this._cube.draw(delta);
+        this._cube.update(delta);
+        this._cube.draw();
 
-        this._line.point2 = new Point(800, (this._line.point2.y() + 1) % 400);
+        this._line.end = new Point2(800, (this._line.end.y + 1) % 400);
+        this._line.update();
         this._line.draw();
     }
 }
-
-export default Renderer;

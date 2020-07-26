@@ -12,8 +12,7 @@ const useRenderer: Hook = (contextRef, modelRef) => {
 
     React.useEffect(() => {
         rendererRef.current = new Renderer(
-            contextRef.current,
-            modelRef.current);
+            contextRef.current);
     }, []);
 
     useAnimationFrame(delta => rendererRef.current?.draw(delta));

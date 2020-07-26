@@ -7,11 +7,11 @@ class Vector2 {
         this._y = y;
     }
 
-    public x(): number {
+    public get x(): number {
         return this._x;
     }
 
-    public y(): number {
+    public get y(): number {
         return this._y;
     }
 
